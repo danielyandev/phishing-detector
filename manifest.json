@@ -13,7 +13,6 @@
     }
   ],
   "permissions": [
-    "scripting",
     "tabs"
   ],
   "host_permissions": [
@@ -21,6 +20,12 @@
     "https://*/"
   ],
   "action": {
-    "default_popup": "popup.html"
-  }
+    "default_popup": "default_popup.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["modals/*"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ]
 }
