@@ -82,7 +82,7 @@ const checkPhishing = () => {
  * @returns {boolean}
  */
 const checkMailPageView = () => {
-  const regex = /https:\/\/mail\.google\.com\/mail\/u\/0\/#(\w+([a-zA-Z]?\w+))\/(\w+([\.-]?\w+))/gm
+  const regex = /https:\/\/mail\.google\.com\/mail\/u\/0\/#inbox\/(\w+([\.-]?\w+))/gm
   return regex.test(location.href)
 }
 
