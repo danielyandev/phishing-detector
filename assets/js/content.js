@@ -64,7 +64,16 @@ chrome.runtime.onMessage.addListener(
     }
   });
 
-const checkPhishing = () => {
+const isExtensionEnabled = async () => {
+  const {options} = await chrome.storage.sync.get("options")
+  return options.enabled
+}
+
+const checkPhishing = async () => {
+  const isEnabled = await isExtensionEnabled()
+  if (!isEnabled) {
+    return
+  }
   const page = getMailPage()
   // do nothing if page is not one of supported mail pages
   if(!page) {

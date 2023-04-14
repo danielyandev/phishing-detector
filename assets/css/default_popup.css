@@ -1,0 +1,13 @@
+#toggle-enable {
+    width: 100px;
+}
+
+.wrapper {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+.text-warning {
+    color: darkorange;
+}

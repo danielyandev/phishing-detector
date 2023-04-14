@@ -1,26 +1,33 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "Phishing attack detector",
+  "description": "Check email content and alert if phishing detected",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "./background.js"
   },
+  "icons": {
+    "16": "./assets/img/disabled.png",
+    "32": "./assets/img/disabled.png",
+    "48": "./assets/img/disabled.png",
+    "128": "./assets/img/disabled.png"
+  },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["content.js"]
+      "js": ["./assets/js/content.js"]
     }
   ],
   "permissions": [
-    "tabs"
+    "tabs",
+    "storage"
   ],
   "host_permissions": [
     "http://*/",
     "https://*/"
   ],
   "action": {
-    "default_popup": "default_popup.html"
+    "default_popup": "./popups/default.html"
   },
   "web_accessible_resources": [
     {
