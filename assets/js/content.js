@@ -1,4 +1,10 @@
 /**
+ * URL to lambda function
+ * @type {string}
+ */
+const API_URL = 'https://myzpjzna8g.execute-api.eu-north-1.amazonaws.com/default/phishing-detector-app'
+
+/**
  * Store mail names as constants
  */
 const MAIL_NAMES = {
@@ -140,6 +146,30 @@ const showOriginalMailRequiredDialog = async () => {
     dialog.close();
   });
 }
+
+const showLoadingDialog = async () => {
+  const dialog = await loadModalContent('loading.html')
+  document.body.appendChild(dialog);
+  dialog.showModal();
+
+  dialog.querySelector("button").addEventListener("click", () => {
+    dialog.close();
+  });
+
+  return dialog
+}
+
+const showEmailCheckedDialog = async (isPhishing) => {
+  const template = isPhishing ? 'phishing.html' : 'not_phishing.html'
+  const dialog = await loadModalContent(template)
+  document.body.appendChild(dialog);
+  dialog.showModal();
+
+  dialog.querySelector("button").addEventListener("click", () => {
+    dialog.close();
+  });
+}
+
 /**
  * Check gmail page for phishing email
  */
@@ -200,15 +230,21 @@ const collectFeatures = (raw) => {
 }
 
 const checkEmail =  async (raw) => {
+  const dialog = await showLoadingDialog()
   const features = collectFeatures(raw)
-  const params = new URLSearchParams(features).toString()
-  // todo change url and method
-  let response = await fetch('http://localhost:5000?' + params);
-  response = await response.json()
 
-  // todo show modal with response
-  console.log('response', response.predict)
-  console.log('features', features)
+  const response = await fetch(API_URL, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(features)
+  })
+  const { result } = await response.json()
+
+  dialog.close()
+  showEmailCheckedDialog(result)
 }
 
 
