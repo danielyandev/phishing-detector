@@ -97,8 +97,9 @@ const checkPhishing = async () => {
  * @returns {boolean}
  */
 const checkMailPageView = () => {
-  const regex = /https:\/\/mail\.google\.com\/mail\/u\/0\/#inbox\/(\w+([\.-]?\w+))/gm
-  return regex.test(location.href)
+  const regex = /#inbox\/(\w+([\.-]?\w+))/gm
+  const pagination = /#inbox\/p*(\d)/gm
+  return regex.test(location.hash) && !pagination.test(location.hash)
 }
 
 /**
