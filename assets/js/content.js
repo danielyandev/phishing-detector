@@ -210,7 +210,6 @@ const collectFeatures = (raw) => {
   const features = {
     re_mail: isReMail(raw),
     body_richness: getEmailBodyRichness(message),
-    general_salutation: isGeneralSalutation(message),
     contains_prime_targets: getContainsPrimeTargets(message),
     attachments: getAttachmentsCount(message),
     HTML: isHtml(raw),
@@ -368,10 +367,6 @@ const isIpV4 = (domain) => {
     });
   }
   return false;
-}
-
-const isGeneralSalutation = (message) => {
-  return message.slice(0, 50).includes('dear')
 }
 
 const getAttachmentsCount = (message) => {
